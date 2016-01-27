@@ -11,9 +11,11 @@
 
 #include "glew.h"
 #include <stdio.h>
+#include <memory>
 #include "glm.hpp"
 #include "CAShaderProgram.h"
-
+#include "CATexture2D.h"
+constexpr int MAX_MAP = 6;
 class cube
 {
 public:
@@ -26,10 +28,16 @@ public:
     
     glm::vec3 pos, scale;
     float rotation;
+    
+    
 private:
     static GLuint cube_vao, cube_vbo;
     static shader_program cube_shader;
     static GLuint mvp_loc;
+    
+    // array of diff maps, array of spec maps
+    texture_2D d_maps[MAX_MAP];
+    texture_2D s_maps[MAX_MAP];
 };
 
 #endif /* Cube_hpp */

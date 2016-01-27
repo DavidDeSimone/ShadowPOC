@@ -24,6 +24,11 @@
 		63508A6B1C55F44F00F1B1F4 /* libassimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6350894E1C55F44E00F1B1F4 /* libassimp.dylib */; };
 		63508A791C56035600F1B1F4 /* CAShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63508A771C56035600F1B1F4 /* CAShaderProgram.cpp */; };
 		63508A7C1C5604EF00F1B1F4 /* CATexture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63508A7A1C5604EE00F1B1F4 /* CATexture2D.cpp */; };
+		63508A8E1C58AD2D00F1B1F4 /* image_DXT.c in Sources */ = {isa = PBXBuildFile; fileRef = 63508A7F1C58AD2D00F1B1F4 /* image_DXT.c */; };
+		63508A8F1C58AD2D00F1B1F4 /* image_helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 63508A811C58AD2D00F1B1F4 /* image_helper.c */; };
+		63508A901C58AD2D00F1B1F4 /* libSOIL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63508A831C58AD2D00F1B1F4 /* libSOIL.a */; };
+		63508A931C58AD2D00F1B1F4 /* SOIL.c in Sources */ = {isa = PBXBuildFile; fileRef = 63508A871C58AD2D00F1B1F4 /* SOIL.c */; };
+		63508A941C58AD2D00F1B1F4 /* stb_image_aug.c in Sources */ = {isa = PBXBuildFile; fileRef = 63508A891C58AD2D00F1B1F4 /* stb_image_aug.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -411,6 +416,17 @@
 		63508A7A1C5604EE00F1B1F4 /* CATexture2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CATexture2D.cpp; sourceTree = "<group>"; };
 		63508A7B1C5604EF00F1B1F4 /* CATexture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CATexture2D.h; sourceTree = "<group>"; };
 		63508A7D1C5608C800F1B1F4 /* CAUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAUtil.h; sourceTree = "<group>"; };
+		63508A7F1C58AD2D00F1B1F4 /* image_DXT.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = image_DXT.c; sourceTree = "<group>"; };
+		63508A801C58AD2D00F1B1F4 /* image_DXT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_DXT.h; sourceTree = "<group>"; };
+		63508A811C58AD2D00F1B1F4 /* image_helper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = image_helper.c; sourceTree = "<group>"; };
+		63508A821C58AD2D00F1B1F4 /* image_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_helper.h; sourceTree = "<group>"; };
+		63508A831C58AD2D00F1B1F4 /* libSOIL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSOIL.a; sourceTree = "<group>"; };
+		63508A871C58AD2D00F1B1F4 /* SOIL.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SOIL.c; sourceTree = "<group>"; };
+		63508A881C58AD2D00F1B1F4 /* SOIL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOIL.h; sourceTree = "<group>"; };
+		63508A891C58AD2D00F1B1F4 /* stb_image_aug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stb_image_aug.c; sourceTree = "<group>"; };
+		63508A8A1C58AD2D00F1B1F4 /* stb_image_aug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image_aug.h; sourceTree = "<group>"; };
+		63508A8B1C58AD2D00F1B1F4 /* stbi_DDS_aug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stbi_DDS_aug.h; sourceTree = "<group>"; };
+		63508A8C1C58AD2D00F1B1F4 /* stbi_DDS_aug_c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stbi_DDS_aug_c.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -420,6 +436,7 @@
 			files = (
 				635089301C55F06E00F1B1F4 /* Cocoa.framework in Frameworks */,
 				6350892E1C55F06400F1B1F4 /* IOKit.framework in Frameworks */,
+				63508A901C58AD2D00F1B1F4 /* libSOIL.a in Frameworks */,
 				63508A691C55F44F00F1B1F4 /* libassimp.3.1.1.dylib in Frameworks */,
 				6350892C1C55F05B00F1B1F4 /* CoreVideo.framework in Frameworks */,
 				6350892A1C55F05000F1B1F4 /* OpenGL.framework in Frameworks */,
@@ -439,6 +456,7 @@
 		635088D81C55EEA500F1B1F4 = {
 			isa = PBXGroup;
 			children = (
+				63508A7E1C58AD2D00F1B1F4 /* SOIL */,
 				63508A7D1C5608C800F1B1F4 /* CAUtil.h */,
 				63508A7A1C5604EE00F1B1F4 /* CATexture2D.cpp */,
 				63508A7B1C5604EF00F1B1F4 /* CATexture2D.h */,
@@ -934,6 +952,24 @@
 			name = glm;
 			sourceTree = "<group>";
 		};
+		63508A7E1C58AD2D00F1B1F4 /* SOIL */ = {
+			isa = PBXGroup;
+			children = (
+				63508A7F1C58AD2D00F1B1F4 /* image_DXT.c */,
+				63508A801C58AD2D00F1B1F4 /* image_DXT.h */,
+				63508A811C58AD2D00F1B1F4 /* image_helper.c */,
+				63508A821C58AD2D00F1B1F4 /* image_helper.h */,
+				63508A831C58AD2D00F1B1F4 /* libSOIL.a */,
+				63508A871C58AD2D00F1B1F4 /* SOIL.c */,
+				63508A881C58AD2D00F1B1F4 /* SOIL.h */,
+				63508A891C58AD2D00F1B1F4 /* stb_image_aug.c */,
+				63508A8A1C58AD2D00F1B1F4 /* stb_image_aug.h */,
+				63508A8B1C58AD2D00F1B1F4 /* stbi_DDS_aug.h */,
+				63508A8C1C58AD2D00F1B1F4 /* stbi_DDS_aug_c.h */,
+			);
+			path = SOIL;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -990,8 +1026,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63508A931C58AD2D00F1B1F4 /* SOIL.c in Sources */,
 				635089361C55F0B800F1B1F4 /* CACube.cpp in Sources */,
 				635089331C55F0AE00F1B1F4 /* CACamera.cpp in Sources */,
+				63508A8E1C58AD2D00F1B1F4 /* image_DXT.c in Sources */,
+				63508A941C58AD2D00F1B1F4 /* stb_image_aug.c in Sources */,
+				63508A8F1C58AD2D00F1B1F4 /* image_helper.c in Sources */,
 				63508A7C1C5604EF00F1B1F4 /* CATexture2D.cpp in Sources */,
 				635088E51C55EEA600F1B1F4 /* main.cpp in Sources */,
 				63508A791C56035600F1B1F4 /* CAShaderProgram.cpp in Sources */,
@@ -1087,6 +1127,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/assimp",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/SOIL",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1099,6 +1140,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/assimp",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/SOIL",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
