@@ -64,8 +64,28 @@ static constexpr float cube_vertices[] = {
     -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
 };
 
-cube::cube() : pos(0.0,0.0,0.0), scale(1.0,1.0,1.0), rotation(0.0) {}
-cube::cube(float x, float y, float z) : pos(x, y, z), scale(1.0, 1.0, 1.0), rotation(45.0) {}
+cube::cube() : pos(0.0,0.0,0.0), scale(1.0,1.0,1.0), rotation(0.0), d_count(0), s_count(0)
+{
+}
+cube::cube(float x, float y, float z) : pos(x, y, z), scale(1.0, 1.0, 1.0), rotation(45.0), d_count(0), s_count(0)
+{
+}
+
+void cube::set_texture(const std::string& name, TEXTURE_TYPE type)
+{
+    if (type == TEXTURE_TYPE::DIFFUSE)
+    {
+        assert(d_count <= MAX_MAP);
+        d_maps[d_count] = texture_2D(name);
+        ++d_count;
+    }
+    else if (type == TEXTURE_TYPE::SPECULAR)
+    {
+        assert(s_count <= MAX_MAP);
+        s_maps[s_count] = texture_2D(name);
+        ++s_count;
+    }
+}
 
 void cube::init()
 {

@@ -14,6 +14,12 @@
 #include <string>
 #include "glew.h"
 
+enum class TEXTURE_TYPE
+{
+    SPECULAR,
+    DIFFUSE
+};
+
 struct texture_count
 {
     GLuint texture;

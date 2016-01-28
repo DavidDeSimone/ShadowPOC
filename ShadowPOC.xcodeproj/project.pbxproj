@@ -29,6 +29,7 @@
 		63508A901C58AD2D00F1B1F4 /* libSOIL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63508A831C58AD2D00F1B1F4 /* libSOIL.a */; };
 		63508A931C58AD2D00F1B1F4 /* SOIL.c in Sources */ = {isa = PBXBuildFile; fileRef = 63508A871C58AD2D00F1B1F4 /* SOIL.c */; };
 		63508A941C58AD2D00F1B1F4 /* stb_image_aug.c in Sources */ = {isa = PBXBuildFile; fileRef = 63508A891C58AD2D00F1B1F4 /* stb_image_aug.c */; };
+		63508A9D1C59E99600F1B1F4 /* CAScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63508A9B1C59E99600F1B1F4 /* CAScene.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -427,6 +428,12 @@
 		63508A8A1C58AD2D00F1B1F4 /* stb_image_aug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image_aug.h; sourceTree = "<group>"; };
 		63508A8B1C58AD2D00F1B1F4 /* stbi_DDS_aug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stbi_DDS_aug.h; sourceTree = "<group>"; };
 		63508A8C1C58AD2D00F1B1F4 /* stbi_DDS_aug_c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stbi_DDS_aug_c.h; sourceTree = "<group>"; };
+		63508A971C59E5FE00F1B1F4 /* specular.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = specular.png; sourceTree = "<group>"; };
+		63508A981C59E5FE00F1B1F4 /* wall.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wall.jpg; sourceTree = "<group>"; };
+		63508A991C59E5FE00F1B1F4 /* wood.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wood.png; sourceTree = "<group>"; };
+		63508A9A1C59E5FE00F1B1F4 /* wood_panel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wood_panel.png; sourceTree = "<group>"; };
+		63508A9B1C59E99600F1B1F4 /* CAScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAScene.cpp; sourceTree = "<group>"; };
+		63508A9C1C59E99600F1B1F4 /* CAScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAScene.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -456,6 +463,9 @@
 		635088D81C55EEA500F1B1F4 = {
 			isa = PBXGroup;
 			children = (
+				63508A9B1C59E99600F1B1F4 /* CAScene.cpp */,
+				63508A9C1C59E99600F1B1F4 /* CAScene.h */,
+				63508A961C59E5FE00F1B1F4 /* textures */,
 				63508A7E1C58AD2D00F1B1F4 /* SOIL */,
 				63508A7D1C5608C800F1B1F4 /* CAUtil.h */,
 				63508A7A1C5604EE00F1B1F4 /* CATexture2D.cpp */,
@@ -970,6 +980,17 @@
 			path = SOIL;
 			sourceTree = "<group>";
 		};
+		63508A961C59E5FE00F1B1F4 /* textures */ = {
+			isa = PBXGroup;
+			children = (
+				63508A971C59E5FE00F1B1F4 /* specular.png */,
+				63508A981C59E5FE00F1B1F4 /* wall.jpg */,
+				63508A991C59E5FE00F1B1F4 /* wood.png */,
+				63508A9A1C59E5FE00F1B1F4 /* wood_panel.png */,
+			);
+			path = textures;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1030,6 +1051,7 @@
 				635089361C55F0B800F1B1F4 /* CACube.cpp in Sources */,
 				635089331C55F0AE00F1B1F4 /* CACamera.cpp in Sources */,
 				63508A8E1C58AD2D00F1B1F4 /* image_DXT.c in Sources */,
+				63508A9D1C59E99600F1B1F4 /* CAScene.cpp in Sources */,
 				63508A941C58AD2D00F1B1F4 /* stb_image_aug.c in Sources */,
 				63508A8F1C58AD2D00F1B1F4 /* image_helper.c in Sources */,
 				63508A7C1C5604EF00F1B1F4 /* CATexture2D.cpp in Sources */,

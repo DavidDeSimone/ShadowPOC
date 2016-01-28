@@ -12,6 +12,7 @@
 #include "CACamera.h"
 #include "CACube.h"
 #include "CAUtil.h"
+#include "CAScene.h"
 
 constexpr int width = 800;
 constexpr int height = 600;
@@ -22,6 +23,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
 camera default_camera;
+scene base_scene;
 
 int main(int argc, const char * argv[]) {
     glfwInit();
@@ -46,6 +48,22 @@ int main(int argc, const char * argv[]) {
     glViewport(0, 0, width, height);
     cube::init();
     
+    base_scene.add(new (std::nothrow) cube( 0.0f,  0.0f,  0.0f));
+    base_scene.add(new (std::nothrow) cube( 2.0f,  5.0f, -15.0f));
+    base_scene.add(new (std::nothrow) cube(-1.5f, -2.2f, -2.5f));
+    base_scene.add(new (std::nothrow) cube(-3.8f, -2.0f, -12.3f));
+    base_scene.add(new (std::nothrow) cube( 2.4f, -0.4f, -3.5f));
+    base_scene.add(new (std::nothrow) cube(-1.7f,  3.0f, -7.5f));
+    base_scene.add(new (std::nothrow) cube( 1.3f, -2.0f, -2.5f));
+    base_scene.add(new (std::nothrow) cube( 1.5f,  2.0f, -2.5f));
+    base_scene.add(new (std::nothrow) cube( 1.5f,  0.2f, -1.5f));
+    base_scene.add(new (std::nothrow) cube(-1.3f,  1.0f, -1.5f));
+    
+    for (auto cube : base_scene.get()) {
+        cube->set_texture("specular.png", TEXTURE_TYPE::SPECULAR);
+        cube->set_texture("wood.png", TEXTURE_TYPE::DIFFUSE);
+    }
+    
 
     start(window);
     
@@ -66,24 +84,13 @@ void start(GLFWwindow *window)
     }
 }
 
-cube cubes[] = {
-    cube( 0.0f,  0.0f,  0.0f),
-    cube( 2.0f,  5.0f, -15.0f),
-    cube(-1.5f, -2.2f, -2.5f),
-    cube(-3.8f, -2.0f, -12.3f),
-    cube( 2.4f, -0.4f, -3.5f),
-    cube(-1.7f,  3.0f, -7.5f),
-    cube( 1.3f, -2.0f, -2.5f),
-    cube( 1.5f,  2.0f, -2.5f),
-    cube( 1.5f,  0.2f, -1.5f),
-    cube(-1.3f,  1.0f, -1.5f)
-};
+
 
 void update(float dt)
 {
-    for (auto & c : cubes)
+    for (auto c : base_scene.get())
     {
-        c.draw();
+        c->draw();
     }
 }
 

@@ -29,6 +29,8 @@ public:
     glm::vec3 pos, scale;
     float rotation;
     
+    void set_texture(const std::string& name, TEXTURE_TYPE type);
+    
     
 private:
     static GLuint cube_vao, cube_vbo;
@@ -36,8 +38,8 @@ private:
     static GLuint mvp_loc;
     
     // array of diff maps, array of spec maps
-    texture_2D d_maps[MAX_MAP];
-    texture_2D s_maps[MAX_MAP];
+    texture_2D d_maps[MAX_MAP]; size_t d_count;
+    texture_2D s_maps[MAX_MAP]; size_t s_count;
 };
 
 #endif /* Cube_hpp */
