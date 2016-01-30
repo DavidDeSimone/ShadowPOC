@@ -64,7 +64,6 @@ GLuint texture_2D::make_texture(const char *name)
     
     GLuint texture;
     glGenTextures(1, &texture);
-    glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, texture);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
     glGenerateMipmap(GL_TEXTURE_2D);
@@ -80,8 +79,8 @@ GLuint texture_2D::make_texture(const char *name)
 
 void texture_2D::bind(GLuint loc, int num)
 {
-    glBindTexture(GL_TEXTURE_2D, texture);
     glActiveTexture(GL_TEXTURE0 + num);
+    glBindTexture(GL_TEXTURE_2D, texture);
     glUniform1i(loc, num);
 //    glBindTexture(GL_TEXTURE_2D, 0);
 }

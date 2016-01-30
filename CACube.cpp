@@ -17,7 +17,7 @@
 GLuint cube::cube_vao = 0;
 GLuint cube::cube_vbo = 0;
 shader_program cube::cube_shader;
-GLuint cube::mvp_loc = 0;
+cuniforms cube::cube_uniforms = {0};
 GLuint cube::d_loc[MAX_MAP];
 GLuint cube::s_loc[MAX_MAP];
 
@@ -112,7 +112,11 @@ void cube::init()
     cube_shader.attachShader(cube_fsh);
     cube_shader.link();
     
-    mvp_loc = glGetUniformLocation(cube_shader.get(), "ModelViewProjection");
+    cube_shader.use();
+    cube_uniforms.mvp_loc = glGetUniformLocation(cube_shader.get(), "ModelViewProjection");
+    cube_uniforms.mv_loc  = glGetUniformLocation(cube_shader.get(), "ModelView");
+    cube_uniforms.m_loc   = glGetUniformLocation(cube_shader.get(), "Model");
+    cube_uniforms.view_loc = glGetUniformLocation(cube_shader.get(), "view_dir");
     d_loc[0] = glGetUniformLocation(cube_shader.get(), "texture_diffuse");
     s_loc[0] = glGetUniformLocation(cube_shader.get(), "texture_specular");
 }
@@ -132,7 +136,12 @@ void cube::draw()
     model = glm::rotate(model, glm::radians(rotation), glm::vec3(1.0));
     
     glm::mat4 mvp = projection * view * model;
-    glUniformMatrix4fv(mvp_loc, 1, GL_FALSE, glm::value_ptr(mvp));
+    glm::mat4 mv  = view * model;
+    glUniformMatrix4fv(cube_uniforms.mvp_loc, 1, GL_FALSE, glm::value_ptr(mvp));
+    glUniformMatrix4fv(cube_uniforms.mv_loc, 1, GL_FALSE, glm::value_ptr(mv));
+    glUniformMatrix4fv(cube_uniforms.m_loc, 1, GL_FALSE, glm::value_ptr(model));
+    
+    glUniform3f(cube_uniforms.view_loc, camera.pos.x, camera.pos.y, camera.pos.z);
     
     d_map[0].bind(d_loc[0], 0);
     s_map[0].bind(s_loc[0], 1);

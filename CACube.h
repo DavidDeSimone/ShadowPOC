@@ -16,6 +16,16 @@
 #include "CAShaderProgram.h"
 #include "CATexture2D.h"
 constexpr int MAX_MAP = 6;
+
+struct cuniforms
+{
+    GLuint mvp_loc;
+    GLuint mv_loc;
+    GLuint m_loc;
+    GLuint view_loc;
+};
+
+
 class cube
 {
 public:
@@ -35,7 +45,7 @@ public:
 private:
     static GLuint cube_vao, cube_vbo;
     static shader_program cube_shader;
-    static GLuint mvp_loc;
+    static cuniforms cube_uniforms;
     
     // array of diff maps, array of spec maps
     std::vector<texture_2D> d_map;
