@@ -38,8 +38,9 @@ private:
     static GLuint mvp_loc;
     
     // array of diff maps, array of spec maps
-    texture_2D d_maps[MAX_MAP]; size_t d_count;
-    texture_2D s_maps[MAX_MAP]; size_t s_count;
+    std::vector<texture_2D> d_map;
+    std::vector<texture_2D> s_map;
+    static GLuint d_loc[MAX_MAP]; static GLuint s_loc[MAX_MAP];
 };
 
 #endif /* Cube_hpp */

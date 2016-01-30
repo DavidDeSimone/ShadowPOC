@@ -30,13 +30,18 @@ class texture_2D
 {
 public:
     texture_2D() : texture(0) {};
+    texture_2D(texture_2D&& mov) : name(std::move(mov.name)), texture(mov.texture) {};
+    texture_2D(const texture_2D& copy);
     texture_2D(const std::string& name);
     ~texture_2D();
     GLuint get() const;
     
+    void bind(GLuint loc, int num);
+    
 private:
-    static std::map<std::string, texture_count> texture_cache;
     static GLuint make_texture(const char * name);
+    static std::map<std::string, texture_count> texture_cache;
+    
     GLuint texture;
     std::string name;
 };

@@ -18,6 +18,9 @@ GLuint cube::cube_vao = 0;
 GLuint cube::cube_vbo = 0;
 shader_program cube::cube_shader;
 GLuint cube::mvp_loc = 0;
+GLuint cube::d_loc[MAX_MAP];
+GLuint cube::s_loc[MAX_MAP];
+
 
 static constexpr float cube_vertices[] = {
     // Positions           // Normals           // Texture Coords
@@ -64,10 +67,10 @@ static constexpr float cube_vertices[] = {
     -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
 };
 
-cube::cube() : pos(0.0,0.0,0.0), scale(1.0,1.0,1.0), rotation(0.0), d_count(0), s_count(0)
+cube::cube() : pos(0.0,0.0,0.0), scale(1.0,1.0,1.0), rotation(0.0)
 {
 }
-cube::cube(float x, float y, float z) : pos(x, y, z), scale(1.0, 1.0, 1.0), rotation(45.0), d_count(0), s_count(0)
+cube::cube(float x, float y, float z) : pos(x, y, z), scale(1.0, 1.0, 1.0), rotation(45.0)
 {
 }
 
@@ -75,15 +78,13 @@ void cube::set_texture(const std::string& name, TEXTURE_TYPE type)
 {
     if (type == TEXTURE_TYPE::DIFFUSE)
     {
-        assert(d_count <= MAX_MAP);
-        d_maps[d_count] = texture_2D(name);
-        ++d_count;
+        assert(d_map.size() <= MAX_MAP);
+        d_map.emplace_back(texture_2D(name));
     }
     else if (type == TEXTURE_TYPE::SPECULAR)
     {
-        assert(s_count <= MAX_MAP);
-        s_maps[s_count] = texture_2D(name);
-        ++s_count;
+        assert(s_map.size() <= MAX_MAP);
+        s_map.emplace_back(texture_2D(name));
     }
 }
 
@@ -112,6 +113,8 @@ void cube::init()
     cube_shader.link();
     
     mvp_loc = glGetUniformLocation(cube_shader.get(), "ModelViewProjection");
+    d_loc[0] = glGetUniformLocation(cube_shader.get(), "texture_diffuse");
+    s_loc[0] = glGetUniformLocation(cube_shader.get(), "texture_specular");
 }
 
 void cube::draw()
@@ -130,6 +133,9 @@ void cube::draw()
     
     glm::mat4 mvp = projection * view * model;
     glUniformMatrix4fv(mvp_loc, 1, GL_FALSE, glm::value_ptr(mvp));
+    
+    d_map[0].bind(d_loc[0], 0);
+    s_map[0].bind(s_loc[0], 1);
     
     glDrawArrays(GL_TRIANGLES, 0, 36);
     

@@ -16,23 +16,24 @@
 
 std::map<std::string, texture_count> texture_2D::texture_cache;
 
-texture_2D::texture_2D(const std::string& name)
-:name(name)
+texture_2D::texture_2D(const std::string& tname)
+:name(tname)
 {
-    auto tc_iter = texture_cache.find(name);
+    auto tc_iter = texture_cache.find(tname);
     if (tc_iter != texture_cache.end())
     {
         tc_iter->second.count++;
         texture = tc_iter->second.texture;
     } else {
-        texture = make_texture(name.c_str());
+        texture = make_texture(tname.c_str());
         texture_count tc_insert = {texture, 1};
-        texture_cache.insert(std::make_pair(name, tc_insert));
+        texture_cache.insert(std::make_pair(tname, tc_insert));
     }
 }
 
 texture_2D::~texture_2D()
 {
+    if (!name.length()) return; // in case the move constructor has stolen our name :)
     auto tc_iter = texture_cache.find(name);
     assert(tc_iter != texture_cache.end());
     
@@ -44,6 +45,15 @@ texture_2D::~texture_2D()
         glDeleteTextures(1, &tc_insert.texture);
     }
 
+}
+
+texture_2D::texture_2D(const texture_2D& copy)
+:name(copy.name)
+{
+    auto tc_iter = texture_cache.find(name);
+    assert(tc_iter != texture_cache.end());
+    tc_iter->second.count++;
+    texture = tc_iter->second.texture;
 }
 
 GLuint texture_2D::make_texture(const char *name)
@@ -66,6 +76,14 @@ GLuint texture_2D::make_texture(const char *name)
     glBindTexture(GL_TEXTURE_2D, 0);
     
     return texture;
+}
+
+void texture_2D::bind(GLuint loc, int num)
+{
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glActiveTexture(GL_TEXTURE0 + num);
+    glUniform1i(loc, num);
+//    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 GLuint texture_2D::get() const
