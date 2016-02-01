@@ -22,7 +22,7 @@ void point_light::bind(GLuint shader, int index)
 
 void point_light::set_uniform_locs(GLuint shader, int index)
 {
-    std::string base_str = std::string("point_lights[") + std::to_string(index) + std::string("].");
+    std::string base_str = std::string("point_light_arr[") + std::to_string(index) + std::string("].");
     std::string pos_str = base_str + "pos";
     std::string am_str = base_str + "ambient";
     std::string df_str = base_str + "diffuse";

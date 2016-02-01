@@ -130,14 +130,14 @@ void cube::draw()
     cube_shader.use();
     glBindVertexArray(cube_vao);
     
-//    int i = 0;
-//    auto&& point_lights = get_current_scene().get_point_lights();
-//    glUniform1i(cube_shader.get(), static_cast<int>(point_lights.size()));
-//    for (auto & pl : get_current_scene().get_point_lights())
-//    {
-//        pl->bind(cube_shader.get(), i);
-//        ++i;
-//    }
+    int i = 0;
+    auto&& point_lights = get_current_scene().get_point_lights();
+    glUniform1i(cube_uniforms.num_point_lights, static_cast<int>(point_lights.size()));
+    for (auto & pl : point_lights)
+    {
+        pl->bind(cube_shader.get(), i);
+        ++i;
+    }
     
     auto camera = get_default_camera();
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)get_width() / get_height(), 0.1f, 100.f);

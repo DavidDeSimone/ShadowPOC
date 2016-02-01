@@ -24,7 +24,7 @@ struct point_light
 };
 
 
-uniform int num_point_lights;
+uniform int num_point_lights = 0;
 #define MAX_POINT_LIGHTS 32
 
 uniform point_light point_light_arr[MAX_POINT_LIGHTS];
@@ -76,17 +76,11 @@ void main()
     vec3 vd = normalize(view_dir - FragPos);
     vec3 dir_light = calc_dir_light(norm, vd);
     
-    point_light p;
-    p.pos = vec3(0.0, 0.0, 0.0);
-    p.ambient = vec3(0.05f, 0.05f, 0.05f);
-    p.diffuse = vec3(0.8f, 0.8f, 0.8f);
-    p.specular = vec3(1.0f, 1.0f, 1.0f);
-    p.constant = 1.0f;
-    p.linear = 0.09;
-    p.quadratic =  0.032;
-    vec3 p_light = calc_point_light(p, norm, vd);
-    
-    vec3 final_c = dir_light + p_light;
-    
-    color = vec4(final_c, 1.0f);
+    vec3 p_light = vec3(0.0, 0.0, 0.0);
+    for (int i = 0; i < num_point_lights; ++i)
+    {
+        p_light += calc_point_light(point_light_arr[i], norm, vd);
+    }
+        
+    color = vec4(dir_light + p_light, 1.0f);
 }
