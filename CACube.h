@@ -23,6 +23,7 @@ struct cuniforms
     GLuint mv_loc;
     GLuint m_loc;
     GLuint view_loc;
+    GLuint num_point_lights;
 };
 
 

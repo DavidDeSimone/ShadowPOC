@@ -9,6 +9,8 @@
 #include "CACube.h"
 #include "CACamera.h"
 #include "CAUtil.h"
+#include "CAScene.h"
+#include "CAPointLight.h"
 
 #include "glm.hpp"
 #include "matrix_transform.hpp"
@@ -117,14 +119,25 @@ void cube::init()
     cube_uniforms.mv_loc  = glGetUniformLocation(cube_shader.get(), "ModelView");
     cube_uniforms.m_loc   = glGetUniformLocation(cube_shader.get(), "Model");
     cube_uniforms.view_loc = glGetUniformLocation(cube_shader.get(), "view_dir");
+    cube_uniforms.num_point_lights = glGetUniformLocation(cube_shader.get(), "num_point_lights");
     d_loc[0] = glGetUniformLocation(cube_shader.get(), "texture_diffuse");
     s_loc[0] = glGetUniformLocation(cube_shader.get(), "texture_specular");
 }
 
 void cube::draw()
 {
+
     cube_shader.use();
     glBindVertexArray(cube_vao);
+    
+//    int i = 0;
+//    auto&& point_lights = get_current_scene().get_point_lights();
+//    glUniform1i(cube_shader.get(), static_cast<int>(point_lights.size()));
+//    for (auto & pl : get_current_scene().get_point_lights())
+//    {
+//        pl->bind(cube_shader.get(), i);
+//        ++i;
+//    }
     
     auto camera = get_default_camera();
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)get_width() / get_height(), 0.1f, 100.f);

@@ -10,14 +10,15 @@
 #define Header_h
 
 #include <string>
+#include <stdlib.h>
 class camera;
-
-
+class scene;
 
 camera get_default_camera();
+scene& get_current_scene();
+
 int get_width();
 int get_height();
-
 
 inline char* read_file_contents(const std::string& file_name)
 {

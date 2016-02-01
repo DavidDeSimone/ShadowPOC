@@ -30,6 +30,7 @@
 		63508A931C58AD2D00F1B1F4 /* SOIL.c in Sources */ = {isa = PBXBuildFile; fileRef = 63508A871C58AD2D00F1B1F4 /* SOIL.c */; };
 		63508A941C58AD2D00F1B1F4 /* stb_image_aug.c in Sources */ = {isa = PBXBuildFile; fileRef = 63508A891C58AD2D00F1B1F4 /* stb_image_aug.c */; };
 		63508A9D1C59E99600F1B1F4 /* CAScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63508A9B1C59E99600F1B1F4 /* CAScene.cpp */; };
+		63508AA31C5DFF4C00F1B1F4 /* CAPointLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63508AA11C5DFF4C00F1B1F4 /* CAPointLight.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -434,6 +435,8 @@
 		63508A9A1C59E5FE00F1B1F4 /* wood_panel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wood_panel.png; sourceTree = "<group>"; };
 		63508A9B1C59E99600F1B1F4 /* CAScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAScene.cpp; sourceTree = "<group>"; };
 		63508A9C1C59E99600F1B1F4 /* CAScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAScene.h; sourceTree = "<group>"; };
+		63508AA11C5DFF4C00F1B1F4 /* CAPointLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAPointLight.cpp; sourceTree = "<group>"; };
+		63508AA21C5DFF4C00F1B1F4 /* CAPointLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAPointLight.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -463,6 +466,8 @@
 		635088D81C55EEA500F1B1F4 = {
 			isa = PBXGroup;
 			children = (
+				63508AA11C5DFF4C00F1B1F4 /* CAPointLight.cpp */,
+				63508AA21C5DFF4C00F1B1F4 /* CAPointLight.h */,
 				63508A9B1C59E99600F1B1F4 /* CAScene.cpp */,
 				63508A9C1C59E99600F1B1F4 /* CAScene.h */,
 				63508A961C59E5FE00F1B1F4 /* textures */,
@@ -1057,6 +1062,7 @@
 				63508A7C1C5604EF00F1B1F4 /* CATexture2D.cpp in Sources */,
 				635088E51C55EEA600F1B1F4 /* main.cpp in Sources */,
 				63508A791C56035600F1B1F4 /* CAShaderProgram.cpp in Sources */,
+				63508AA31C5DFF4C00F1B1F4 /* CAPointLight.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

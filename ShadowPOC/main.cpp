@@ -13,6 +13,7 @@
 #include "CACube.h"
 #include "CAUtil.h"
 #include "CAScene.h"
+#include "CAPointLight.h"
 
 constexpr int width = 800;
 constexpr int height = 600;
@@ -64,7 +65,10 @@ int main(int argc, const char * argv[]) {
         cube->set_texture("wood.png", TEXTURE_TYPE::DIFFUSE);
     }
     
-
+    base_scene.add(new (std::nothrow) point_light(0.0, 1.0, 2.0));
+    base_scene.add(new (std::nothrow) point_light(1.0, 0.0, 1.0));
+    base_scene.add(new (std::nothrow) point_light(0.0, 0.0, 0.0));
+    
     start(window);
     
     return 0;
@@ -83,8 +87,6 @@ void start(GLFWwindow *window)
         last_frame = current_frame;
     }
 }
-
-
 
 void update(float dt)
 {
@@ -117,4 +119,9 @@ int get_height()
 camera get_default_camera()
 {
     return default_camera;
+}
+
+scene& get_current_scene()
+{
+    return base_scene;
 }

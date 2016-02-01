@@ -13,6 +13,8 @@
 #include <vector>
 #include "CACube.h"
 
+class point_light;
+
 
 class scene
 {
@@ -23,10 +25,13 @@ public:
     scene(const scene& cpy) = delete;
     
     std::vector<cube*>& get();
+    std::vector<point_light*>& get_point_lights();
     void add(cube * cb);
+    void add(point_light * cl);
     
 private:
     std::vector<cube*> cvec;
+    std::vector<point_light*> clvec;
 };
 
 #endif /* CAScene_hpp */
