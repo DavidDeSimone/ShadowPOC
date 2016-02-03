@@ -8,6 +8,7 @@
 
 #include "CAScene.h"
 #include "CAPointLight.h"
+#include "CACube.h"
 
 scene::~scene()
 {
@@ -30,6 +31,7 @@ void scene::add(cube * cb)
 
 void scene::add(point_light *cl)
 {
+    assert(clvec.size() <= 32);
     clvec.push_back(cl);
 }
 

@@ -44,6 +44,9 @@ public:
     
     
 private:
+    void set_pl_uniforms() const;
+    
+    
     static GLuint cube_vao, cube_vbo;
     static shader_program cube_shader;
     static cuniforms cube_uniforms;

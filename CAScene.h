@@ -11,10 +11,9 @@
 
 #include <stdio.h>
 #include <vector>
-#include "CACube.h"
 
 class point_light;
-
+class cube;
 
 class scene
 {
