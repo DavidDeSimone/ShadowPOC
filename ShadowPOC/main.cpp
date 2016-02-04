@@ -97,10 +97,8 @@ void start(GLFWwindow *window)
 
 void update(float dt)
 {
-    for (auto c : base_scene.get())
-    {
-        c->draw();
-    }
+    base_scene.lighting_pass(dt);
+    base_scene.render(dt);
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)

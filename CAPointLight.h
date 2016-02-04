@@ -12,6 +12,7 @@
 #include "glew.h"
 #include <stdio.h>
 #include "CAUtil.h"
+#include "CAShaderProgram.h"
 #include "glm.hpp"
 
 struct puniforms
@@ -23,6 +24,8 @@ struct puniforms
     GLuint u_constant;
     GLuint u_linear;
     GLuint u_quadratic;
+    
+    GLuint u_lightMVP;
 };
 
 class point_light
@@ -35,7 +38,9 @@ public:
     constant(1.0),
     linear(1.0),
     quadratic(1.0)
-    {};
+    {
+        init_texture();
+    };
     
     point_light(float x, float y, float z) :
     pos(x, y, z),
@@ -46,11 +51,17 @@ public:
     constant(1.0),
     linear(1.0),
     quadratic(1.0)
-    {};
+    {
+        init_texture();
+    };
     
     ~point_light() = default;
     point_light(const point_light& cpy) = delete;
     point_light(point_light&& mv) = delete;
+    
+    //TODO make a texture 2d
+    void draw(float dt);
+    GLuint get();
     
     void bind(GLuint shader, int index);
     
@@ -64,10 +75,20 @@ public:
     float linear;
     float quadratic;
     
+    static constexpr int shadow_width = 1024;
+    static constexpr int shadow_height = 1024;
+    
 private:
     bool lazy_init;
     void set_uniform_locs(GLuint shader, int index);
     puniforms point_light_uniforms;
+    shader_program light_program;
+    
+    GLuint light_FBO;
+    GLuint depth_map;
+    
+    void init_texture();
+    void transform();
 };
 
 #endif /* CAPointLight_hpp */

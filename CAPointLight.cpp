@@ -7,6 +7,10 @@
 //
 
 #include "CAPointLight.h"
+#include "CAScene.h"
+#include "glm.hpp"
+#include "matrix_transform.hpp"
+#include "type_ptr.hpp"
 
 void point_light::bind(GLuint shader, int index)
 {
@@ -37,4 +41,58 @@ void point_light::set_uniform_locs(GLuint shader, int index)
     point_light_uniforms.u_constant = glGetUniformLocation(shader, cs_str.c_str());
     point_light_uniforms.u_linear = glGetUniformLocation(shader, ln_str.c_str());
     point_light_uniforms.u_quadratic = glGetUniformLocation(shader, qud_str.c_str());
+}
+
+void point_light::draw(float dt)
+{
+    //TODO make this use render_texture_2D
+    light_program.use();
+    glViewport(0, 0, shadow_width, shadow_height);
+    glBindFramebuffer(GL_FRAMEBUFFER, light_FBO);
+    glClear(GL_DEPTH_BUFFER_BIT);
+    transform();
+    get_current_scene().render(dt);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glViewport(0, 0, get_width(), get_height());
+}
+
+void point_light::transform()
+{
+    auto projection = glm::ortho(-10.f, 10.f, -10.f, 10.f, 1.0f, 7.5f);
+    auto view = glm::lookAt(pos, glm::vec3(0.0f), glm::vec3(1.0));
+    
+    auto light_mvp = projection * view;
+    glUniformMatrix4fv(point_light_uniforms.u_lightMVP, 1, GL_FALSE, glm::value_ptr(light_mvp));
+}
+
+GLuint point_light::get()
+{
+    return depth_map;
+}
+
+void point_light::init_texture()
+{
+    glGenFramebuffers(1, &light_FBO);
+    
+    glGenTextures(1, &depth_map);
+    glBindTexture(GL_TEXTURE_2D, depth_map);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT,
+                 shadow_width, shadow_height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    
+    glBindFramebuffer(GL_FRAMEBUFFER, light_FBO);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depth_map, 0);
+    glDrawBuffer(GL_NONE);
+    glReadBuffer(GL_NONE);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    
+    light_program.attachShader(make_shader("depthMap.vsh", GL_VERTEX_SHADER));
+    light_program.attachShader(make_shader("depthMap.fsh", GL_FRAGMENT_SHADER));
+    light_program.link();
+    
+    point_light_uniforms.u_lightMVP = glGetUniformLocation(light_program.get(), "lightSpaceMatrix");
 }

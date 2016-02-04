@@ -28,6 +28,9 @@ public:
     void add(cube * cb);
     void add(point_light * cl);
     
+    void render(float dt) const;
+    void lighting_pass(float dt) const;
+    
 private:
     std::vector<cube*> cvec;
     std::vector<point_light*> clvec;

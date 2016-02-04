@@ -44,3 +44,21 @@ std::vector<cube*>& scene::get()
 {
     return cvec;
 }
+
+void scene::lighting_pass(float dt) const
+{
+    for (auto l : clvec)
+    {
+        l->draw(dt);
+    }
+    
+}
+
+void scene::render(float dt) const
+{
+    for (auto c : cvec)
+    {
+        c->draw();
+    }
+
+}
