@@ -65,6 +65,13 @@ int main(int argc, const char * argv[]) {
         cube->set_texture("wood.png", TEXTURE_TYPE::DIFFUSE);
     }
     
+    auto floor = new (std::nothrow) cube(0.0, -5.f, 0.0);
+    floor->set_scale(20.0, 0.1, 20.0);
+    floor->set_texture("specular.png", TEXTURE_TYPE::SPECULAR);
+    floor->set_texture("wood_panel.png", TEXTURE_TYPE::DIFFUSE);
+    base_scene.add(floor);
+    
+    
     base_scene.add(new (std::nothrow) point_light(0.0, 1.0, 2.0));
     base_scene.add(new (std::nothrow) point_light(1.0, 0.0, 1.0));
     base_scene.add(new (std::nothrow) point_light(0.0, 0.0, 0.0));

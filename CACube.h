@@ -40,6 +40,9 @@ public:
     glm::vec3 pos, scale;
     float rotation;
     
+    void set_scale(float x, float y, float z);
+    void set_rotation(float r);
+    
     void set_texture(const std::string& name, TEXTURE_TYPE type);
     
     
@@ -55,6 +58,8 @@ private:
     std::vector<texture_2D> d_map;
     std::vector<texture_2D> s_map;
     static GLuint d_loc[MAX_MAP]; static GLuint s_loc[MAX_MAP];
+    
+    bool visible;
 };
 
 #endif /* Cube_hpp */

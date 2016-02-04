@@ -69,10 +69,10 @@ static constexpr float cube_vertices[] = {
     -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
 };
 
-cube::cube() : pos(0.0,0.0,0.0), scale(1.0,1.0,1.0), rotation(0.0)
+cube::cube() : pos(0.0,0.0,0.0), scale(1.0,1.0,1.0), rotation(0.0), visible(true)
 {
 }
-cube::cube(float x, float y, float z) : pos(x, y, z), scale(1.0, 1.0, 1.0), rotation(45.0)
+cube::cube(float x, float y, float z) : pos(x, y, z), scale(1.0, 1.0, 1.0), rotation(0.0), visible(true)
 {
 }
 
@@ -124,8 +124,19 @@ void cube::init()
     s_loc[0] = glGetUniformLocation(cube_shader.get(), "texture_specular");
 }
 
+void cube::set_scale(float x, float y, float z)
+{
+    scale = glm::vec3(x, y, z);
+}
+
+void cube::set_rotation(float r)
+{
+    rotation = r;
+}
+
 void cube::draw()
 {
+    if (!visible) return;
 
     cube_shader.use();
     glBindVertexArray(cube_vao);
