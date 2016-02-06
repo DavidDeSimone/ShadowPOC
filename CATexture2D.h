@@ -39,6 +39,10 @@ public:
     
     void bind(GLuint loc, int num);
     
+    texture_2D& operator=(texture_2D&& rhs) = default;
+    texture_2D& operator=(const texture_2D& rhs) = default;
+
+    
 private:
     static GLuint make_texture(const char * name);
     static std::map<std::string, texture_count> texture_cache;

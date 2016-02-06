@@ -7,5 +7,5 @@ uniform sampler2D quad_texture;
 
 void main()
 {
-    color = vec4(texture(renderTex, TexCoords));
+    color = vec4(texture(quad_texture, TexCoords));
 }

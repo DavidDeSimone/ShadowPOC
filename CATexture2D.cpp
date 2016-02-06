@@ -36,6 +36,7 @@ texture_2D::~texture_2D()
 {
     if (external)
     {
+        assert(texture != 0);
         glDeleteTextures(1, &texture);
         return;
     }

@@ -49,6 +49,11 @@ void quad::draw(float dt)
     glBindVertexArray(0);
 }
 
+void quad::set_texture(texture_2D&& tex)
+{
+    texture = std::move(tex);
+}
+
 void quad::init()
 {
     glGenBuffers(1, &quad_vbo);
