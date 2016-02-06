@@ -34,6 +34,7 @@ public:
     texture_2D(const texture_2D& copy);
     texture_2D(const std::string& name);
     ~texture_2D();
+    void set(GLuint texture);
     GLuint get() const;
     
     void bind(GLuint loc, int num);
@@ -44,6 +45,8 @@ private:
     
     GLuint texture;
     std::string name;
+    
+    bool external;
 };
 
 #endif /* CATexture2D_hpp */

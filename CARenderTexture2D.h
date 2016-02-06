@@ -10,11 +10,16 @@
 #define CARenderTexture2D_hpp
 
 #include <stdio.h>
+#include "glew.h"
 
 // TODO
 class render_texture_2D
 {
+public:
+    render_texture_2D();
     
+private:
+    GLuint FBO;
 };
 
 #endif /* CARenderTexture2D_hpp */

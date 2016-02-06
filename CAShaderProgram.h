@@ -13,6 +13,7 @@
 #include "glew.h"
 #include <vector>
 #include "CAUtil.h"
+#include <assert.h>
 
 #define __shaderdir std::string("/Users/david//Desktop/ShadowPOC/")
 
@@ -42,6 +43,7 @@ public:
     
     inline void use()
     {
+        assert(_program != 0);
         glUseProgram(_program);
     }
     

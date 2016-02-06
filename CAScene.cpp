@@ -9,6 +9,7 @@
 #include "CAScene.h"
 #include "CAPointLight.h"
 #include "CACube.h"
+#include "CAQuad.h"
 
 scene::~scene()
 {
@@ -35,6 +36,11 @@ void scene::add(point_light *cl)
     clvec.push_back(cl);
 }
 
+void scene::add(quad * q)
+{
+    qvec.push_back(q);
+}
+
 std::vector<point_light*>& scene::get_point_lights()
 {
     return clvec;
@@ -43,6 +49,19 @@ std::vector<point_light*>& scene::get_point_lights()
 std::vector<cube*>& scene::get()
 {
     return cvec;
+}
+
+std::vector<quad*>& scene::get_quads()
+{
+    return qvec;
+}
+
+void scene::renderq(float dt) const
+{
+    for (auto q : qvec)
+    {
+        q->draw(dt);
+    }
 }
 
 void scene::lighting_pass(float dt) const

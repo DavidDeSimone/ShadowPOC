@@ -17,7 +17,8 @@
 std::map<std::string, texture_count> texture_2D::texture_cache;
 
 texture_2D::texture_2D(const std::string& tname)
-:name(tname)
+:name(tname),
+external(false)
 {
     auto tc_iter = texture_cache.find(tname);
     if (tc_iter != texture_cache.end())
@@ -33,6 +34,12 @@ texture_2D::texture_2D(const std::string& tname)
 
 texture_2D::~texture_2D()
 {
+    if (external)
+    {
+        glDeleteTextures(1, &texture);
+        return;
+    }
+    
     if (!name.length()) return; // in case the move constructor has stolen our name :)
     auto tc_iter = texture_cache.find(name);
     assert(tc_iter != texture_cache.end());
@@ -45,6 +52,13 @@ texture_2D::~texture_2D()
         glDeleteTextures(1, &tc_insert.texture);
     }
 
+}
+
+void texture_2D::set(GLuint tex)
+{
+    assert(tex != 0);
+    texture = tex;
+    external = true;
 }
 
 texture_2D::texture_2D(const texture_2D& copy)
@@ -79,6 +93,7 @@ GLuint texture_2D::make_texture(const char *name)
 
 void texture_2D::bind(GLuint loc, int num)
 {
+    assert(texture != 0);
     glActiveTexture(GL_TEXTURE0 + num);
     glBindTexture(GL_TEXTURE_2D, texture);
     glUniform1i(loc, num);

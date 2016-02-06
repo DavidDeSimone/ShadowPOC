@@ -14,6 +14,7 @@
 
 class point_light;
 class cube;
+class quad;
 
 class scene
 {
@@ -25,15 +26,19 @@ public:
     
     std::vector<cube*>& get();
     std::vector<point_light*>& get_point_lights();
+    std::vector<quad*>& get_quads();
     void add(cube * cb);
     void add(point_light * cl);
+    void add(quad * q);
     
     void render(float dt) const;
     void lighting_pass(float dt) const;
+    void renderq(float dt) const;
     
 private:
     std::vector<cube*> cvec;
     std::vector<point_light*> clvec;
+    std::vector<quad*> qvec;
 };
 
 #endif /* CAScene_hpp */

@@ -14,6 +14,7 @@
 #include "CAUtil.h"
 #include "CAScene.h"
 #include "CAPointLight.h"
+#include "CAQuad.h"
 
 constexpr int width = 800;
 constexpr int height = 600;
@@ -48,6 +49,7 @@ int main(int argc, const char * argv[]) {
     
     glViewport(0, 0, width, height);
     cube::init();
+    quad::init();
     
     base_scene.add(new (std::nothrow) cube( 0.0f,  0.0f,  0.0f));
     base_scene.add(new (std::nothrow) cube( 2.0f,  5.0f, -15.0f));
@@ -70,7 +72,6 @@ int main(int argc, const char * argv[]) {
     floor->set_texture("specular.png", TEXTURE_TYPE::SPECULAR);
     floor->set_texture("wood_panel.png", TEXTURE_TYPE::DIFFUSE);
     base_scene.add(floor);
-    
     
     base_scene.add(new (std::nothrow) point_light(0.0, 1.0, 2.0));
     base_scene.add(new (std::nothrow) point_light(1.0, 0.0, 1.0));
@@ -98,6 +99,7 @@ void start(GLFWwindow *window)
 void update(float dt)
 {
     base_scene.lighting_pass(dt);
+    base_scene.renderq(dt);
     base_scene.render(dt);
 }
 

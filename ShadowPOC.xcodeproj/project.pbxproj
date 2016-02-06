@@ -32,6 +32,7 @@
 		63508A9D1C59E99600F1B1F4 /* CAScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63508A9B1C59E99600F1B1F4 /* CAScene.cpp */; };
 		63508AA31C5DFF4C00F1B1F4 /* CAPointLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63508AA11C5DFF4C00F1B1F4 /* CAPointLight.cpp */; };
 		63508AA91C6321B500F1B1F4 /* CARenderTexture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63508AA71C6321B500F1B1F4 /* CARenderTexture2D.cpp */; };
+		63508AAE1C6468B900F1B1F4 /* CAQuad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63508AAC1C6468B900F1B1F4 /* CAQuad.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -442,6 +443,10 @@
 		63508AA81C6321B500F1B1F4 /* CARenderTexture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CARenderTexture2D.h; sourceTree = "<group>"; };
 		63508AAA1C63234200F1B1F4 /* depthMap.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = depthMap.vsh; sourceTree = "<group>"; };
 		63508AAB1C63234F00F1B1F4 /* depthMap.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = depthMap.fsh; sourceTree = "<group>"; };
+		63508AAC1C6468B900F1B1F4 /* CAQuad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAQuad.cpp; sourceTree = "<group>"; };
+		63508AAD1C6468B900F1B1F4 /* CAQuad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAQuad.h; sourceTree = "<group>"; };
+		63508AAF1C6475FA00F1B1F4 /* quad.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = quad.vsh; sourceTree = "<group>"; };
+		63508AB01C64761F00F1B1F4 /* quad.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = quad.fsh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -471,6 +476,8 @@
 		635088D81C55EEA500F1B1F4 = {
 			isa = PBXGroup;
 			children = (
+				63508AAC1C6468B900F1B1F4 /* CAQuad.cpp */,
+				63508AAD1C6468B900F1B1F4 /* CAQuad.h */,
 				63508AA71C6321B500F1B1F4 /* CARenderTexture2D.cpp */,
 				63508AA81C6321B500F1B1F4 /* CARenderTexture2D.h */,
 				63508AA11C5DFF4C00F1B1F4 /* CAPointLight.cpp */,
@@ -939,6 +946,8 @@
 				63508A761C56032300F1B1F4 /* mesh.fsh */,
 				63508AAA1C63234200F1B1F4 /* depthMap.vsh */,
 				63508AAB1C63234F00F1B1F4 /* depthMap.fsh */,
+				63508AAF1C6475FA00F1B1F4 /* quad.vsh */,
+				63508AB01C64761F00F1B1F4 /* quad.fsh */,
 			);
 			name = shaders;
 			sourceTree = "<group>";
@@ -1066,6 +1075,7 @@
 				635089361C55F0B800F1B1F4 /* CACube.cpp in Sources */,
 				635089331C55F0AE00F1B1F4 /* CACamera.cpp in Sources */,
 				63508A8E1C58AD2D00F1B1F4 /* image_DXT.c in Sources */,
+				63508AAE1C6468B900F1B1F4 /* CAQuad.cpp in Sources */,
 				63508A9D1C59E99600F1B1F4 /* CAScene.cpp in Sources */,
 				63508A941C58AD2D00F1B1F4 /* stb_image_aug.c in Sources */,
 				63508A8F1C58AD2D00F1B1F4 /* image_helper.c in Sources */,
