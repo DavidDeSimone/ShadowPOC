@@ -65,15 +65,15 @@ void point_light::transform()
     glUniformMatrix4fv(point_light_uniforms.u_lightMVP, 1, GL_FALSE, glm::value_ptr(light_mvp));
 }
 
-GLuint point_light::get()
+texture_2D& point_light::get()
 {
-    return depth_map;
+    return depth_texture;
 }
 
 void point_light::init_texture()
 {
     glGenFramebuffers(1, &light_FBO);
-    
+    GLuint depth_map;
     glGenTextures(1, &depth_map);
     glBindTexture(GL_TEXTURE_2D, depth_map);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT,
@@ -95,4 +95,6 @@ void point_light::init_texture()
     light_program.link();
     
     point_light_uniforms.u_lightMVP = glGetUniformLocation(light_program.get(), "lightSpaceMatrix");
+    
+    depth_texture.set(depth_map);
 }

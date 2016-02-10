@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include "CAUtil.h"
 #include "CAShaderProgram.h"
+#include "CATexture2D.h"
 #include "glm.hpp"
 
 struct puniforms
@@ -61,7 +62,7 @@ public:
     
     //TODO make a texture 2d
     void draw(float dt);
-    GLuint get();
+    texture_2D& get();
     
     void bind(GLuint shader, int index);
     
@@ -85,7 +86,8 @@ private:
     shader_program light_program;
     
     GLuint light_FBO;
-    GLuint depth_map;
+    
+    texture_2D depth_texture;
     
     void init_texture();
     void transform();
