@@ -25,8 +25,9 @@ struct puniforms
     GLuint u_constant;
     GLuint u_linear;
     GLuint u_quadratic;
-    
+    GLuint u_ls_matrix;
     GLuint u_lightMVP;
+    GLuint u_shadow_maps_arr;
 };
 
 class point_light
@@ -90,7 +91,7 @@ private:
     texture_2D depth_texture;
     
     void init_texture();
-    void transform();
+    glm::mat4 transform();
 };
 
 #endif /* CAPointLight_hpp */

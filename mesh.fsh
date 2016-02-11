@@ -1,12 +1,17 @@
 #version 330 core
+#define MAX_POINT_LIGHTS 32
+
 in vec3 Normal;
 in vec2 TexCoords;
 in vec3 FragPos;
+in vec4 FragPosLightSpace[MAX_POINT_LIGHTS];
 
 out vec4 color;
 
 uniform sampler2D texture_diffuse;
 uniform sampler2D texture_specular;
+
+uniform sampler2D shadow_maps[MAX_POINT_LIGHTS];
 
 uniform vec3 view_dir;
 
@@ -23,11 +28,20 @@ struct point_light
     float quadratic;
 };
 
-
 uniform int num_point_lights = 0;
-#define MAX_POINT_LIGHTS 32
+
 
 uniform point_light point_light_arr[MAX_POINT_LIGHTS];
+
+float shadow_calc(vec4 frag_pos_light_space, int index)
+{
+    vec3 proj_corrds = frag_pos_light_space.xyz / frag_pos_light_space.w;
+    proj_corrds = proj_corrds * 0.5f + 0.5; // map from [0,1] to [-1,1]
+    float closest_depth = texture(shadow_maps[0], proj_corrds.xy).r;
+    float current_depth = proj_corrds.z;
+    float shadow = current_depth > closest_depth ? 100.0 : 0.0;
+    return shadow;
+}
 
 vec3 calc_dir_light(vec3 norm, vec3 vd)
 {
@@ -49,7 +63,7 @@ vec3 calc_dir_light(vec3 norm, vec3 vd)
     return (al + dl + sl);
 }
 
-vec3 calc_point_light(point_light point, vec3 norm, vec3 vd)
+vec3 calc_point_light(point_light point, vec3 norm, vec3 vd, int index)
 {
     vec3 light_dir = normalize(point.pos - FragPos);
     
@@ -66,7 +80,10 @@ vec3 calc_point_light(point_light point, vec3 norm, vec3 vd)
     ambient  *= attenuation;
     diffuse  *= attenuation;
     specular *= attenuation;
-    return (ambient + diffuse + specular);
+    
+    float shadow_val = shadow_calc(FragPosLightSpace[0], index);
+    vec3 shadow_m_ds = (1.0f - shadow_val) * (diffuse + specular);
+    return (ambient + shadow_m_ds);
 }
 
 
@@ -79,7 +96,7 @@ void main()
     vec3 p_light = vec3(0.0, 0.0, 0.0);
     for (int i = 0; i < num_point_lights; ++i)
     {
-        p_light += calc_point_light(point_light_arr[i], norm, vd);
+        p_light += calc_point_light(point_light_arr[i], norm, vd, i);
     }
         
     color = vec4(dir_light + p_light, 1.0f);

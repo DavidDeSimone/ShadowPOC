@@ -22,11 +22,17 @@ void point_light::bind(GLuint shader, int index)
     glUniform1f(point_light_uniforms.u_constant, constant);
     glUniform1f(point_light_uniforms.u_linear, linear);
     glUniform1f(point_light_uniforms.u_quadratic, quadratic);
+    glUniformMatrix4fv(point_light_uniforms.u_ls_matrix, 1, GL_FALSE, glm::value_ptr(transform()));
+    
+    // TODO hard coding 16 wont SCALE
+    depth_texture.bind(point_light_uniforms.u_shadow_maps_arr, 16);
 }
 
 void point_light::set_uniform_locs(GLuint shader, int index)
 {
     std::string base_str = std::string("point_light_arr[") + std::to_string(index) + std::string("].");
+    std::string mat_str = std::string("SpaceLightMatrixArray[") + std::to_string(index) + std::string("]");
+    std::string shadow_map_arr_str = std::string("shadow_maps[") + std::to_string(index) + std::string("]");
     std::string pos_str = base_str + "pos";
     std::string am_str = base_str + "ambient";
     std::string df_str = base_str + "diffuse";
@@ -41,6 +47,8 @@ void point_light::set_uniform_locs(GLuint shader, int index)
     point_light_uniforms.u_constant = glGetUniformLocation(shader, cs_str.c_str());
     point_light_uniforms.u_linear = glGetUniformLocation(shader, ln_str.c_str());
     point_light_uniforms.u_quadratic = glGetUniformLocation(shader, qud_str.c_str());
+    point_light_uniforms.u_ls_matrix = glGetUniformLocation(shader, mat_str.c_str());
+    point_light_uniforms.u_shadow_maps_arr = glGetUniformLocation(shader, shadow_map_arr_str.c_str());
 }
 
 void point_light::draw(float dt)
@@ -50,19 +58,19 @@ void point_light::draw(float dt)
     glViewport(0, 0, shadow_width, shadow_height);
     glBindFramebuffer(GL_FRAMEBUFFER, light_FBO);
     glClear(GL_DEPTH_BUFFER_BIT);
-    transform();
+    glUniformMatrix4fv(point_light_uniforms.u_lightMVP, 1, GL_FALSE, glm::value_ptr(transform()));
+    // Issue: Rendered scene needs to use the light program shader, and not bind uniforms
     get_current_scene().render(dt);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glViewport(0, 0, get_width(), get_height());
 }
 
-void point_light::transform()
+glm::mat4 point_light::transform()
 {
     auto projection = glm::ortho(-10.f, 10.f, -10.f, 10.f, 1.0f, 7.5f);
-    auto view = glm::lookAt(pos, glm::vec3(0.0f), glm::vec3(1.0));
+    auto view = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f), glm::vec3(0.0f), glm::vec3(1.0));
     
-    auto light_mvp = projection * view;
-    glUniformMatrix4fv(point_light_uniforms.u_lightMVP, 1, GL_FALSE, glm::value_ptr(light_mvp));
+    return projection * view;
 }
 
 texture_2D& point_light::get()
