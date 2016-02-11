@@ -37,7 +37,7 @@ float shadow_calc(vec4 frag_pos_light_space, int index)
 {
     vec3 proj_corrds = frag_pos_light_space.xyz / frag_pos_light_space.w;
     proj_corrds = proj_corrds * 0.5f + 0.5; // map from [0,1] to [-1,1]
-    float closest_depth = texture(shadow_maps[1], proj_corrds.xy).r;
+    float closest_depth = texture(shadow_maps[2], proj_corrds.xy).r;
     float current_depth = proj_corrds.z;
     float bias = 0.005;
     float shadow = current_depth - bias > closest_depth ? 1.0 : 0.0;
@@ -82,7 +82,7 @@ vec3 calc_point_light(point_light point, vec3 norm, vec3 vd, int index)
     diffuse  *= attenuation;
     specular *= attenuation;
     
-    float shadow_val = shadow_calc(FragPosLightSpace[1], index);
+    float shadow_val = shadow_calc(FragPosLightSpace[2], index);
     vec3 shadow_m_ds = (1.0f - shadow_val) * (diffuse + specular);
     return (ambient + shadow_m_ds);
 }

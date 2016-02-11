@@ -59,11 +59,21 @@ void point_light::draw(float dt)
     glViewport(0, 0, shadow_width, shadow_height);
     glBindFramebuffer(GL_FRAMEBUFFER, light_FBO);
     glClear(GL_DEPTH_BUFFER_BIT);
-    glUniformMatrix4fv(point_light_uniforms.u_lightMVP, 1, GL_FALSE, glm::value_ptr(transform()));
+    auto light_mvp = transform();
     // Issue: Rendered scene needs to use the light program shader, and not bind uniforms
     glCullFace(GL_FRONT);
     for (auto & c : get_current_scene().get())
     {
+        // TODO move this into cubes translate
+        auto cmodel = glm::mat4();
+        cmodel = glm::translate(cmodel, c->pos);
+        cmodel = glm::scale(cmodel, c->scale);
+        cmodel = glm::rotate(cmodel, glm::radians(c->rotation), glm::vec3(1.0));
+        
+        auto fmvp = light_mvp * cmodel;
+        
+        glUniformMatrix4fv(point_light_uniforms.u_lightMVP, 1, GL_FALSE, glm::value_ptr(fmvp));
+        
         c->draw();
     }
     glCullFace(GL_BACK);
