@@ -134,13 +134,11 @@ void cube::set_rotation(float r)
     rotation = r;
 }
 
-void cube::draw()
+void cube::visit(float dt)
 {
     if (!visible) return;
-
-    cube_shader.use();
-    glBindVertexArray(cube_vao);
     
+    cube_shader.use();
     set_pl_uniforms();
     
     auto camera = get_default_camera();
@@ -163,6 +161,16 @@ void cube::draw()
     d_map[0].bind(d_loc[0], 0);
     s_map[0].bind(s_loc[0], 1);
     
+    draw();
+
+}
+
+void cube::draw()
+{
+    if (!visible) return;
+
+    glBindVertexArray(cube_vao);
+
     glDrawArrays(GL_TRIANGLES, 0, 36);
     
     glBindVertexArray(0);

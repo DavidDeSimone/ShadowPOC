@@ -34,6 +34,7 @@ public:
     cube(float x, float y, float z);
     ~cube() = default;
     
+    void visit(float dt);
     void draw();
     static void init();
     

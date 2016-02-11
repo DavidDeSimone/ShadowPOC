@@ -8,6 +8,7 @@
 
 #include "CAPointLight.h"
 #include "CAScene.h"
+#include "CACube.h"
 #include "glm.hpp"
 #include "matrix_transform.hpp"
 #include "type_ptr.hpp"
@@ -25,7 +26,7 @@ void point_light::bind(GLuint shader, int index)
     glUniformMatrix4fv(point_light_uniforms.u_ls_matrix, 1, GL_FALSE, glm::value_ptr(transform()));
     
     // TODO hard coding 16 wont SCALE
-    depth_texture.bind(point_light_uniforms.u_shadow_maps_arr, 16);
+    depth_texture.bind(point_light_uniforms.u_shadow_maps_arr, index + 16);
 }
 
 void point_light::set_uniform_locs(GLuint shader, int index)
@@ -60,7 +61,12 @@ void point_light::draw(float dt)
     glClear(GL_DEPTH_BUFFER_BIT);
     glUniformMatrix4fv(point_light_uniforms.u_lightMVP, 1, GL_FALSE, glm::value_ptr(transform()));
     // Issue: Rendered scene needs to use the light program shader, and not bind uniforms
-    get_current_scene().render(dt);
+    glCullFace(GL_FRONT);
+    for (auto & c : get_current_scene().get())
+    {
+        c->draw();
+    }
+    glCullFace(GL_BACK);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glViewport(0, 0, get_width(), get_height());
 }
@@ -68,7 +74,7 @@ void point_light::draw(float dt)
 glm::mat4 point_light::transform()
 {
     auto projection = glm::ortho(-10.f, 10.f, -10.f, 10.f, 1.0f, 7.5f);
-    auto view = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f), glm::vec3(0.0f), glm::vec3(1.0));
+    auto view = glm::lookAt(pos, glm::vec3(0.0f), glm::vec3(1.0));
     
     return projection * view;
 }

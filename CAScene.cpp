@@ -77,7 +77,7 @@ void scene::render(float dt) const
 {
     for (auto c : cvec)
     {
-        c->draw();
+        c->visit(dt);
     }
 
 }

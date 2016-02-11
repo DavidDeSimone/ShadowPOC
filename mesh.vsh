@@ -23,5 +23,5 @@ void main()
     Normal = normal;
     TexCoords = texCoords;
     FragPos = vec3(Model * vec4(position, 1.0f));
-    FragPosLightSpace[0] = SpaceLightMatrixArray[0] * vec4(FragPos, 1.0f);
+    FragPosLightSpace[1] = SpaceLightMatrixArray[1] * vec4(FragPos, 1.0f);
 }
