@@ -11,6 +11,8 @@ out vec4 color;
 uniform sampler2D texture_diffuse;
 uniform sampler2D texture_specular;
 
+// TODO, since GLSL hates me, I will need to make this a struct of shadowmaps,
+
 uniform sampler2D shadow_maps[MAX_POINT_LIGHTS];
 
 uniform vec3 view_dir;
