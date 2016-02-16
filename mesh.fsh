@@ -12,7 +12,9 @@ uniform sampler2D texture_specular;
 
 // TODO, since GLSL hates me, I will need to make this a struct of shadowmaps,
 
-uniform sampler2D shadow_map;
+uniform sampler2D shadow_map_0;
+uniform sampler2D shadow_map_1;
+uniform sampler2D shadow_map_2;
 
 uniform vec3 view_dir;
 uniform mat4 SpaceLightMatrixArray[MAX_POINT_LIGHTS];
@@ -44,7 +46,7 @@ float shadow_calc(vec4 frag_pos_light_space, vec3 light_dir, vec3 normal, int in
         return 0.0;
     }
     
-    float closest_depth = texture(shadow_map, proj_corrds.xy).r;
+    float closest_depth = texture(shadow_map_1, proj_corrds.xy).r;
     float current_depth = proj_corrds.z;
     float bias = max(0.05 * (1.0 - dot(normal, light_dir)), 0.005);
     float shadow = current_depth - bias > closest_depth ? 1.0 : 0.0;
@@ -89,7 +91,7 @@ vec3 calc_point_light(point_light point, vec3 norm, vec3 vd, int index)
     diffuse  *= attenuation;
     specular *= attenuation;
     
-    vec4 frag_pos_light_space = SpaceLightMatrixArray[2] * vec4(FragPos, 1.0f);
+    vec4 frag_pos_light_space = SpaceLightMatrixArray[1] * vec4(FragPos, 1.0f);
     float shadow_val = shadow_calc(frag_pos_light_space, light_dir, norm, index);
     vec3 shadow_m_ds = (1.0f - shadow_val) * (diffuse + specular);
     return (ambient + shadow_m_ds);

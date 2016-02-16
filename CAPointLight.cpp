@@ -13,11 +13,6 @@
 #include "matrix_transform.hpp"
 #include "type_ptr.hpp"
 
-puniforms point_light::point_light_uniforms;
-shader_program point_light::light_program;
-GLuint point_light::light_FBO = 0;
-texture_2D point_light::depth_texture;
-
 void point_light::bind(GLuint shader, int index)
 {
     if (!lazy_init) set_uniform_locs(shader, index); lazy_init = true;
@@ -38,7 +33,7 @@ void point_light::set_uniform_locs(GLuint shader, int index)
 {
     std::string base_str = std::string("point_light_arr[") + std::to_string(index) + std::string("].");
     std::string mat_str = std::string("SpaceLightMatrixArray[") + std::to_string(index) + std::string("]");
-    std::string shadow_map_arr_str = std::string("shadow_map");
+    std::string shadow_map_arr_str = std::string("shadow_map_") + std::to_string(index);
     std::string pos_str = base_str + "pos";
     std::string am_str = base_str + "ambient";
     std::string df_str = base_str + "diffuse";
@@ -88,7 +83,8 @@ void point_light::draw(float dt)
 
 glm::mat4 point_light::transform()
 {
-    auto projection = glm::ortho(-10.f, 10.f, -10.f, 10.f, 1.0f, 7.5f);
+    auto projection = glm::ortho(-10.f, 10.f, -10.f, 10.f, 1.0f, 10.5f);
+//    auto projection = glm::perspective(glm::radians(90.f), (float)shadow_width / shadow_height, 1.0f, 7.5f);
     auto view = glm::lookAt(pos, glm::vec3(0.0f), glm::vec3(1.0));
     
     return projection * view;
