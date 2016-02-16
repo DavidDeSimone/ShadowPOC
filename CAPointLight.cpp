@@ -13,6 +13,11 @@
 #include "matrix_transform.hpp"
 #include "type_ptr.hpp"
 
+puniforms point_light::point_light_uniforms;
+shader_program point_light::light_program;
+GLuint point_light::light_FBO = 0;
+texture_2D point_light::depth_texture;
+
 void point_light::bind(GLuint shader, int index)
 {
     if (!lazy_init) set_uniform_locs(shader, index); lazy_init = true;
@@ -33,7 +38,7 @@ void point_light::set_uniform_locs(GLuint shader, int index)
 {
     std::string base_str = std::string("point_light_arr[") + std::to_string(index) + std::string("].");
     std::string mat_str = std::string("SpaceLightMatrixArray[") + std::to_string(index) + std::string("]");
-    std::string shadow_map_arr_str = std::string("shadow_maps[") + std::to_string(index) + std::string("]");
+    std::string shadow_map_arr_str = std::string("shadow_map");
     std::string pos_str = base_str + "pos";
     std::string am_str = base_str + "ambient";
     std::string df_str = base_str + "diffuse";
@@ -94,7 +99,7 @@ texture_2D& point_light::get()
     return depth_texture;
 }
 
-void point_light::init_texture()
+void point_light::init()
 {
     glGenFramebuffers(1, &light_FBO);
     GLuint depth_map;
@@ -104,8 +109,10 @@ void point_light::init_texture()
                  shadow_width, shadow_height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+    GLfloat borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
+    glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
     
     glBindFramebuffer(GL_FRAMEBUFFER, light_FBO);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depth_map, 0);

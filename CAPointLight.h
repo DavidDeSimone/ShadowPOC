@@ -41,7 +41,6 @@ public:
     linear(1.0),
     quadratic(1.0)
     {
-        init_texture();
     };
     
     point_light(float x, float y, float z) :
@@ -54,7 +53,6 @@ public:
     linear(1.0),
     quadratic(1.0)
     {
-        init_texture();
     };
     
     ~point_light() = default;
@@ -80,17 +78,17 @@ public:
     static constexpr int shadow_width = 1024;
     static constexpr int shadow_height = 1024;
     
+    static void init();
+    
 private:
     bool lazy_init;
     void set_uniform_locs(GLuint shader, int index);
-    puniforms point_light_uniforms;
-    shader_program light_program;
     
-    GLuint light_FBO;
+    static puniforms point_light_uniforms;
+    static shader_program light_program;
+    static GLuint light_FBO;
+    static texture_2D depth_texture;
     
-    texture_2D depth_texture;
-    
-    void init_texture();
     glm::mat4 transform();
 };
 

@@ -15,7 +15,6 @@ uniform mat4 SpaceLightMatrixArray[MAX_POINT_LIGHTS];
 out vec3 Normal;
 out vec2 TexCoords;
 out vec3 FragPos;
-out vec4 FragPosLightSpace[MAX_POINT_LIGHTS];
 
 void main()
 {
@@ -23,5 +22,4 @@ void main()
     Normal = normal;
     TexCoords = texCoords;
     FragPos = vec3(Model * vec4(position, 1.0f));
-    FragPosLightSpace[2] = SpaceLightMatrixArray[2] * vec4(FragPos, 1.0f);
 }

@@ -50,6 +50,7 @@ int main(int argc, const char * argv[]) {
     glViewport(0, 0, width, height);
     cube::init();
     quad::init();
+    point_light::init();
     
     base_scene.add(new (std::nothrow) cube( 0.0f,  1.5f,  0.0f));
     base_scene.add(new (std::nothrow) cube( 2.0f,  5.0f, 1.0f));
